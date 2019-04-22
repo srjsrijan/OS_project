@@ -1,0 +1,175 @@
+/*                 QUESTION NO.11
+                 
+                         
+  * DESCRIPTION OF PROJECT 
+  
+  In the given question disk drive has 5,0000 cylinders,numbered 0 to 4999.
+  Cureently pocess woking at cylender  143,
+  and previously process working at cylender 125 .
+  In this problem we have to calculate the total distance covered from the cureent position to the last cylender.
+  
+   * REQUIRED PROGRAMME OF ABOVE PROBLEM.*/
+   
+   
+ #include<stdio.h>
+ 
+ #include<math.h>
+
+	# define min 0;
+	
+	# define max 4999;
+	
+	int cp =143;
+	
+	int current_distance;
+	
+	int P_distance[] = {86,1470,913,1774,948,1509,1022,1750,1300};
+	int A_distance[9];
+	
+	
+
+	void distancecalculator()
+	{
+		int Total_distance = 0;
+		
+		
+			for(int i=0;i<9;i++)
+			
+			
+			{
+				Total_distance = Total_distance + A_distance[i];
+				
+				
+			}
+			printf("Total distance is %d",Total_distance);
+	}
+
+	int main()
+	{
+		int distance = 0;
+		
+		
+		for(int i=0;i<9;i++)
+		
+		
+		{
+			
+			
+			distance =abs( cp-P_distance[i]);
+			A_distance[i]=distance;
+			
+			cp = P_distance[i];
+			
+			
+		}
+		
+		
+		distancecalculator();
+		
+		
+	}
+	
+	
+/*
+	       *COMPLEXITY
+	       
+	       The complexity of the above programme would be O(n).
+	       Because in this programme we need visit each and every reqired cylinder 
+	       to calculate the distance.
+	       
+	       
+	       * TEST CASES
+	       
+	       
+	       out put is 5911.
+	       It actually the effective  total distance covered .*/
+
+
+
+ /*                  QUESTION NO. 14
+
+
+
+               # Description of project
+
+
+        In the given question ,a teacher being served at the food mess and during the period when he is being served,
+        another teacher comes ,then that teacher would get the food next.This process might continue leading to increase 
+       in waiting time of students toget food.In this programme I minimized the waiting time of students.
+       I overcome the problem with the help of first come first serve concept.
+
+
+          # Required programme for the given question      */
+   
+
+
+
+#include<iostream>
+
+using namespace std;
+ 
+
+void findWaitingTime(int processes[], int n, int bt[], int wt[])
+{
+    wt[0] = 0;
+ 
+    for (int i = 1; i < n ; i++)
+    {
+        wt[i] =  bt[i-1] + wt[i-1];
+    }
+}
+void findTurnAroundTime( int processes[], int n, int bt[], int wt[], int tat[])
+{
+   
+    for (int i = 0; i < n ; i++)
+    {
+        tat[i] = bt[i] + wt[i];
+    }
+}
+ 
+
+void findAverageTime( int processes[], int n, int bt[])
+{
+    int wt[n], tat[n], total_wt = 0, total_tat = 0;
+ 
+    
+    findWaitingTime(processes, n, bt, wt);
+    findTurnAroundTime(processes, n, bt, wt, tat);
+    cout << "Processes  "<< " Burst time  "<< " Waiting time  " << " Turn around time\n";
+    
+    for (int i = 0; i < n; i++)
+    {
+        total_wt = total_wt + wt[i];
+        total_tat = total_tat + tat[i];
+        cout << "   " << i+1 << "\t\t" << bt[i] <<"\t    "<< wt[i] <<"\t\t  " << tat[i] <<endl;
+    }
+ 
+    cout << "Average waiting time = "<< (float)total_wt / (float)n;
+    cout << "\nAverage turn around time = "<< (float)total_tat / (float)n;
+}
+ 
+
+int main()
+{
+    int processes[] = { 1, 2, 3, 4};
+    int n = sizeof processes / sizeof processes[0];
+    int  burst_time[] = {21, 3, 6, 2};
+ 
+    findAverageTime(processes, n,  burst_time);
+    
+    return 0;
+}
+ 
+ 
+ 
+ /*      # Test Cases
+
+
+
+    Processes Burst time Waiting time Turn around time
+     1 21 0 21
+     2 3 21 24
+     3 6 24 30
+     4 2 30 32
+   Average waiting time = 18.75
+   Average turn around time = 26.7   */	
